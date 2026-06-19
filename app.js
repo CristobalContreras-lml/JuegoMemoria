@@ -4,7 +4,8 @@ const state = {
     cartas: [],
     volteadas: [],
     bloqueado: false,
-    movimientos: 0
+    movimientos: 0,
+    timer: null
 };
 
 const RecordManager = {
@@ -20,6 +21,7 @@ const RecordManager = {
 
 function iniciarJuego() {
     // 1. Obtener dificultad y emojis
+    if (state.timer) clearTimeout(state.timer);
     const nivel = parseInt(document.getElementById('dificultad').value);
     const emojisSeleccionados = EMOJIS.slice(0, nivel);
     
@@ -27,18 +29,24 @@ function iniciarJuego() {
     const mazo = [...emojisSeleccionados, ...emojisSeleccionados].map((emoji, index) => ({
         id: index,
         emoji,
-        revelada: false,
+        revelada: true,
         encontrada: false
     }));
     
     state.cartas = mazo.sort(() => Math.random() - 0.5);
     state.volteadas = [];
-    state.bloqueado = false;
+    state.bloqueado = true;
     state.movimientos = 0;
     
     document.getElementById('mensaje').textContent = '';
     document.getElementById('contador').textContent = '0';
     render();
+    state.timer = setTimeout(() => {
+        state.cartas.forEach(c => c.revelada = false);
+        state.bloqueado = false;
+        document.getElementById('mensaje').textContent = '';
+        render();
+    }, 1000);
 }
 
 function render() {
@@ -72,7 +80,7 @@ function compararCartas() {
         render();
         revisarVictoria();
     } else {
-        setTimeout(() => {
+    state.timer = setTimeout(() => {
             c1.revelada = false;
             c2.revelada = false;
             state.volteadas = [];
