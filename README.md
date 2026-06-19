@@ -28,3 +28,10 @@ Implementaría un temporizador de partida que penalice el tiempo de resolución 
 
 ## 3. Conclusión
 El proceso de auditoría permitió transformar un código frágil en una aplicación robusta. La lección principal es que la automatización es una herramienta de aceleración, pero la responsabilidad técnica y la seguridad de la arquitectura dependen siempre de la validación humana.
+
+
+
+
+## 🎮 Jugar Online
+Puedes probar la versión desplegada del juego aquí:
+[https://tu-usuario.github.io/nombre-de-tu-repositorio/](https://cristobalcontreras-lml.github.io/JuegoMemoria/)
