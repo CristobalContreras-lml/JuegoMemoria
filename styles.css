@@ -16,3 +16,22 @@
     border-radius: 8px;
 }
 .carta.revelada { background-color: #edeae1; }
+
+.fila {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+#tablero {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 10px;
+    margin-bottom: 20px;
+    max-width: 600px;
+}
+
+.carta.encontrada { 
+    background-color: #a8e063; 
+    cursor: default; 
+}
