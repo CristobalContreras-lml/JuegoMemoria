@@ -55,6 +55,15 @@ function compararCartas() {
         }, 1000);
     }
 }
+function revisarVictoria() {
+    const ganaste = state.cartas.every(carta => carta.encontrada);
+    if (ganaste) {
+        setTimeout(() => {
+            alert(`¡Felicidades! Ganaste en ${state.movimientos} movimientos.`);
+        }, 100);
+    }
+}
+
 // Delegación de eventos en el contenedor del tablero
 document.getElementById('tablero').addEventListener('click', (e) => {
     // Buscamos si el click fue sobre una carta
