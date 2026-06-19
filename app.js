@@ -74,7 +74,12 @@ function revisarVictoria() {
         setTimeout(() => {
             alert(`¡Felicidades! Ganaste en ${state.movimientos} movimientos.`);
         }, 100);
+        
+    if (RecordManager.guardar(movimientos)) {
+      msg += ' ¡Nuevo récord: ' + movimientos + '!';
     }
+    document.getElementById('mensaje').textContent = msg;}
+    
 }
 
 // Delegación de eventos en el contenedor del tablero
