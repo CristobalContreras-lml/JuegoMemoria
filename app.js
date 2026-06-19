@@ -92,5 +92,11 @@ document.getElementById('tablero').addEventListener('click', (e) => {
 
 // Listener para el botón reiniciar
 document.getElementById('reiniciar').addEventListener('click', iniciarJuego);
-// Inicializar el juego al cargar la página
+
+
+document.addEventListener('keydown', (e) => {
+    if (e.key.toLowerCase() === 'r') {
+        iniciarJuego();
+    }
+});
 iniciarJuego();
