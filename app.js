@@ -6,6 +6,19 @@ const state = {
     movimientos: 0
 };
 
+// Gestión de Puntajes (Módulo de Persistencia)
+const RecordManager = {
+  guardar: (movimientos) => {
+    const mejor = localStorage.getItem('mejorPuntaje') || Infinity;
+    if (movimientos < mejor) {
+      localStorage.setItem('mejorPuntaje', movimientos);
+      return true;
+    }
+    return false;
+  },
+  obtener: () => localStorage.getItem('mejorPuntaje') || '-'
+};
+
 // Generar mazo y barajar
 function iniciarJuego() {
     const emojis = ['🍎', '🚀', '🐱', '🌵', '🎲', '🎧', '⚽', '🍕'];
