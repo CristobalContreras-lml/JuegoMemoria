@@ -34,3 +34,54 @@ function render() {
     });
     document.getElementById('contador').textContent = state.movimientos;
 }
+function compararCartas() {
+    const [c1, c2] = state.volteadas;
+    state.movimientos++;
+
+    if (c1.emoji === c2.emoji) {
+        c1.encontrada = true;
+        c2.encontrada = true;
+        state.volteadas = [];
+        state.bloqueado = false;
+        render();
+        revisarVictoria(); // Llamamos a una función para saber si ganamos
+    } else {
+        setTimeout(() => {
+            c1.revelada = false;
+            c2.revelada = false;
+            state.volteadas = [];
+            state.bloqueado = false;
+            render();
+        }, 1000);
+    }
+}
+// Delegación de eventos en el contenedor del tablero
+document.getElementById('tablero').addEventListener('click', (e) => {
+    // Buscamos si el click fue sobre una carta
+    const cartaDiv = e.target.closest('.carta');
+    
+    // Si no es una carta o el tablero está bloqueado, no hacemos nada
+    if (!cartaDiv || state.bloqueado) return;
+
+    const id = Number(cartaDiv.dataset.id);
+    const carta = state.cartas.find(c => c.id === id);
+
+    // Si la carta ya está revelada o encontrada, ignoramos el click
+    if (carta.revelada || carta.encontrada) return;
+
+    // Lógica: voltear la carta
+    carta.revelada = true;
+    state.volteadas.push(carta);
+    render(); // Volvemos a dibujar basándonos en el nuevo estado
+
+    // Si volteamos 2, comparamos
+    if (state.volteadas.length === 2) {
+        state.bloqueado = true; // Bloqueamos el tablero
+        compararCartas();
+    }
+});
+
+// Listener para el botón reiniciar
+document.getElementById('reiniciar').addEventListener('click', iniciarJuego);
+// Inicializar el juego al cargar la página
+iniciarJuego();
